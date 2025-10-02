@@ -54,6 +54,24 @@ str str_strip_postfix_cstr(str it, const char *postfix) {
 
 bool str_is_sz(str it) { return it.data[it.len - 1] == 0; }
 
+int str_cmp_str(str a, str b) {
+	const int d = a.len - b.len;
+	if (d) { return (0 < d) - (d < 0); }
+	return strncmp(a.data, b.data, a.len);
+}
+
+int str_cmp_cstr(str a, const char *b) {
+	const int d = a.len - strlen(b);
+	if (d) { return (0 < d) - (d < 0); }
+	return strncmp(a.data, b, a.len);
+}
+
+int cstr_cmp_str(const char *a, str b) {
+	const int d = strlen(a) - b.len;
+	if (d) { return (0 < d) - (d < 0); }
+	return strncmp(a, b.data, b.len);
+}
+
 bool str_eq_str(str a, str b) {
 	return a.len == b.len && !strncmp(a.data, b.data, a.len);
 }

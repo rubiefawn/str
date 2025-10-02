@@ -14,26 +14,37 @@ str str_strip_whitespace_pre(str it);
 // Returns a non-owning copy of a `str` with all trailing whitespace removed.
 str str_strip_whitespace_post(str it);
 
-// Returns a non-owning copy of a `str` with a given prefix removed, if it is present.
+// Returns a non-owning copy of a `str` with a given `str` prefix removed, if it is present.
 str str_strip_prefix_str(str it, str prefix);
 
-// Returns a non-owning copy of a `str` with a given postfix removed, if it is present.
+// Returns a non-owning copy of a `str` with a given `str` postfix removed, if it is present.
 str str_strip_postfix_str(str it, str postfix);
 
-// Returns a non-owning copy of a `str` with a given prefix removed, if it is present.
+// Returns a non-owning copy of a `str` with a given `char*` prefix removed, if it is present.
 str str_strip_prefix_cstr(str it, const char *prefix);
 
-// Returns a non-owning copy of a `str` with a given postfix removed, if it is present.
+// Returns a non-owning copy of a `str` with a given `char*` postfix removed, if it is present.
 str str_strip_postfix_cstr(str it, const char *postfix);
 
 #define str_strip_prefix(IT, PREFIX) _Generic((PREFIX), str: str_strip_prefix_str, char *: str_strip_prefix_cstr)((IT), (PREFIX))
 
 #define str_strip_postfix(IT, POSTFIX) _Generic((POSTFIX), str: str_strip_postfix_str, char *: str_strip_postfix_cstr)((IT), (POSTFIX))
 
-// TODO: Make strcmp equivalents that measure difference instead of just returning a bool, since sometimes that is useful
-
 // Checks if a `str` is null-terminated.
 bool str_is_sz(str it);
+
+// Compares two `str` lexicographically.
+int str_cmp_str(str a, str b);
+
+// Compares a `str` and a `char*` lexicographically.
+int str_cmp_cstr(str a, const char *b);
+
+// Compares a `str` and a `char*` lexicographically.
+int cstr_cmp_str(const char *a, str b);
+
+#define cstr_cmp_cstr strcmp
+
+#define str_cmp(LHS, RHS) _Generic((LHS), str: _Generic((RHS), str: str_cmp_str, char *: str_cmp_cstr), char *: _Generic((RHS), str: cstr_cmp_str, char *: strcmp))((LHS), (RHS))
 
 // Compares two `str` to see if their contents are equal.
 bool str_eq_str(str a, str b);
