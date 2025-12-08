@@ -14,7 +14,7 @@ ptrdiff_t strzcat(char *restrict dest, const char *restrict src, size_t size) {
 	return strzcpy(&dest[dest_len], src, size - dest_len);
 }
 
-#if !defined(_POSIX_C_SOURCE) || _POSIX_C_SOURCE < 200809L
+#if __STDC_VERSION__ < 202311L && (!defined(_POSIX_C_SOURCE) || _POSIX_C_SOURCE < 200809L)
 #include <stdlib.h>
 
 char *strdup(const char *src) {

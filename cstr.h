@@ -13,7 +13,7 @@ ptrdiff_t strzcpy(char *restrict dest, const char *restrict src, size_t size);
 // of characters that did not fit.
 ptrdiff_t strzcat(char *restrict dest, const char *restrict src, size_t size);
 
-#if !defined(_POSIX_C_SOURCE) || _POSIX_C_SOURCE < 200809L
+#if __STDC_VERSION__ < 202311L && (!defined(_POSIX_C_SOURCE) || _POSIX_C_SOURCE < 200809L)
 char *strdup(const char *src);
 char *strndup(const char *src, size_t size);
 #endif
