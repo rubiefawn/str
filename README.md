@@ -1,5 +1,7 @@
 # 🧵 str
 
+**This repository has been moved to [Codeberg](https://codeberg.org/rubiefawn/str).**
+
 Common string utilities for C I'm sick of rewriting:
 
 - Utilities for string "slices" (also known as "views" or "spans"), which are a pointer + length. Useful for substring references.
